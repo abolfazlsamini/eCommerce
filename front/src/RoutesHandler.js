@@ -19,7 +19,7 @@ const RoutesHandler = () => {
                 <Route path="/contact" element={<Contact />}/>
                 
 
-                <Route path="/:id" element={<ProductView id= {":id"} />}/>
+                <Route path="/:id" element={<ProductView  />}/>
 
 
             </Routes>
