@@ -4,6 +4,7 @@ import Contact from "./Contact";
 import Home from "./Home";
 import ProductView from "./ProductView";
 import { Route, Routes } from "react-router-dom";
+import NotFound from "./NotFound";
 
 
 const RoutesHandler = () => {
@@ -11,7 +12,8 @@ const RoutesHandler = () => {
 
 
             <Routes>
-
+                 <Route path='*' element={<NotFound />} />
+                 
                 <Route path="/" element={<Home/>}/>
             
                 <Route path="/about" element={<About />}/>
@@ -19,7 +21,7 @@ const RoutesHandler = () => {
                 <Route path="/contact" element={<Contact />}/>
                 
 
-                <Route path="/:id" element={<ProductView id= {":id"} />}/>
+                <Route path="/1" element={<ProductView id= {'1'} />}/>
 
 
             </Routes>

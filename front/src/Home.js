@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router';
+import { BrowserRouter, Link } from 'react-router-dom';
 import './Home.css';
+import ProductView from './ProductView';
 
 
 function Home() {
@@ -32,10 +33,16 @@ function Home() {
             <li key={product.id}>
               {/* TODO: make a loading effect for products */}
               {/* TODO: make the products a working button */}
-              <button className='product' onClick={()=> <Navigate to={product.id} replace state={ product.id }/>}>
+
+              
+              <Link to= {"/" + product.id} >
                 {product.name}<br/>
                 {product.price}
-              </button>
+              </Link>
+
+
+
+
             </li>
 
         )}
