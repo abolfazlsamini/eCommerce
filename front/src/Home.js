@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { Navigate, useNavigate } from 'react-router';
 import './Home.css';
 
 
@@ -18,10 +18,7 @@ function Home() {
     fetcher();
   },[])
 
-  let navigate = useNavigate();
-  function handleSubmit(url){
-    navigate("/"+url);
-  }
+
 
   return (
 
@@ -35,7 +32,7 @@ function Home() {
             <li key={product.id}>
               {/* TODO: make a loading effect for products */}
               {/* TODO: make the products a working button */}
-              <button className='product' onClick={()=> handleSubmit(product.id)}>
+              <button className='product' onClick={()=> <Navigate to={product.id} replace state={ product.id }/>}>
                 {product.name}<br/>
                 {product.price}
               </button>

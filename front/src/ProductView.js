@@ -2,7 +2,7 @@ import React from "react";
 
 // const { useState } = require("react");
 
-function ProductView(){
+function ProductView(props){
 
     // function fetcher(pid){
 
@@ -17,7 +17,7 @@ function ProductView(){
           <div>
               <h1>
 
-              ProductView..
+              ProductView of {props.id}
               </h1>
           </div>
       )
