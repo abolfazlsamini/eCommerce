@@ -7,7 +7,7 @@ import { Route, Routes } from "react-router-dom";
 import NotFound from "./NotFound";
 
 
-const RoutesHandler = () => {
+const RoutesHandler = (props) => {
     return (
 
 
@@ -21,7 +21,7 @@ const RoutesHandler = () => {
                 <Route path="/contact" element={<Contact />}/>
                 
 
-                <Route path="/1" element={<ProductView id= {'1'} />}/>
+                <Route path="/:id" element={<ProductView  />}/>
 
 
             </Routes>

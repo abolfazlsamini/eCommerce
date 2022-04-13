@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useLocation } from 'react-router-dom';
 // const { useState } = require("react");
 
 function ProductView(props){
@@ -12,12 +12,16 @@ function ProductView(props){
     //       res => {return res.json()}).then(
     //         data => setDetailedList(data));
     //   }
-      
+      const location = useLocation();
+      const id  = location.state;
       return(
           <div>
               <h1>
 
-              ProductView of {props.id}
+              ProductView of {id.
+// @ts-ignore
+              id}
+              {console.log()}
               </h1>
           </div>
       )
