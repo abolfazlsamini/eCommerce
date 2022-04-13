@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Home.css';
-import ProductView from './ProductView';
 
 
 function Home() {
@@ -26,11 +24,11 @@ function Home() {
       <h3>All Products:</h3>
 
       {list.map(product => {return (
-      <li key={product.id}>
+      <li className='ProductList' key={product.id}>
         
         {/* TODO: make a loading effect for products */}
 
-        <Link to= {"/"+product.id } state={{id :product.id}}   >
+        <Link to= {"/"+product.id } state={{id :product.id}}>
           {product.name}<br/>
           {product.price}
         </Link>

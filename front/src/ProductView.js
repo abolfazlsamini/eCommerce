@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation } from 'react-router-dom';
+
+
 const { useState } = require("react");
 
 function ProductView(props){
@@ -21,23 +23,25 @@ function ProductView(props){
   },[])
 
   return(
-    <div>
-      <h1>
-        {console.log(detailedList)}
 
-      <div  className="Product detail">
+       
+
+      <h3  className="Product-detail">
         <h3>Product details are:</h3>
-        name: {detailedList.name}<br/>
-        price: {detailedList.price}<br/>
-        description: {detailedList.description}
-      </div>
+{/*  it works it's just the editor is being a dick about it so i'll leave it be for now */}
+        name: {detailedList.
+// @ts-ignore
+        name}<br/>
+        price: {detailedList.
+// @ts-ignore
+        price}<br/>
+        description: {detailedList.
+// @ts-ignore
+        description}
 
+        {console.log(detailedList)}
+      </h3>
 
-
-  
-
-      </h1>
-    </div>
   )
 }
 
