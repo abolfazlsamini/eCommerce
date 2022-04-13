@@ -19,32 +19,23 @@ function Home() {
     fetcher();
   },[])
 
-  const newTo = { 
-    pathname: "/3", 
-    id: "2"
-  };
 
   return (
 
     <div className="Home">
-      <h3>Hi</h3>
+      <h3>All Products:</h3>
 
       {list.map(product => {return (
+      <li key={product.id}>
+        
+        {/* TODO: make a loading effect for products */}
 
+        <Link to= {"/"+product.id } state={{id :product.id}}   >
+          {product.name}<br/>
+          {product.price}
+        </Link>
 
-            <li key={product.id}>
-              
-              {/* TODO: make a loading effect for products */}
-
-              <Link to= {"/"+product.id } state={{id :product.id}}   >
-                {product.name}<br/>
-                {product.price}
-              </Link>
-
-
-
-
-            </li>
+      </li>
 
         )}
       )}

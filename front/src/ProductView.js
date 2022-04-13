@@ -1,27 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation } from 'react-router-dom';
-// const { useState } = require("react");
+const { useState } = require("react");
 
 function ProductView(props){
 
-    // function fetcher(pid){
+    const location = useLocation();
+    const id = location.state;
+    const [detailedList,setDetailedList] = useState([]);
 
-    //     const [detailedList,setDetailedList] = useState();
-    //     const url = 'http://127.0.0.1:8000/api/products/' + pid;
-    //     fetch(url).then(
-    //       res => {return res.json()}).then(
-    //         data => setDetailedList(data));
-    //   }
-      const location = useLocation();
-      const id  = location.state;
+    function fetcher(id){
+
+        const url = 'http://127.0.0.1:8000/api/products/' + id.id;
+        fetch(url).then(
+          res => {return res.json()}).then(
+            data => setDetailedList(data));
+            
+      }
+
+    useEffect(()=>{
+    fetcher(id);
+    },[])
+
       return(
           <div>
               <h1>
+                {console.log(detailedList)}
 
-              ProductView of {id.
-// @ts-ignore
-              id}
-              {console.log()}
+                {detailedList.map(detail => {return (
+
+        <div  >
+          {detail.name}<br/>
+          {detail.price}<br/>
+          {detail.description}
+        </div>
+
+
+        )}
+      )}
+
               </h1>
           </div>
       )
