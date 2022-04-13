@@ -26,9 +26,10 @@ function ProductView(props){
         {console.log(detailedList)}
 
       <div  className="Product detail">
-        {detailedList.name}<br/>
-        {detailedList.price}<br/>
-        {detailedList.description}
+        <h3>Product details are:</h3>
+        name: {detailedList.name}<br/>
+        price: {detailedList.price}<br/>
+        description: {detailedList.description}
       </div>
 
 
