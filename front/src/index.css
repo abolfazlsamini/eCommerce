@@ -5,10 +5,44 @@ html{
   min-height: 100%;
   
 }
-.NavBar li{
-  display: inline;
-  margin: 5px;
+
+/* *********NavBar***********/
+.NavBar{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
 }
+.isActive:hover {
+  background-color: #123f2e;
+  transform: scale(1.08);
+  transition-duration: 0.0s;
+
+}
+.notActive:hover {
+  background-color: #3f6154;
+  transform: scale(1.1);
+}
+.isActive{
+  display: block;
+  color: white;
+  background-color: #084930;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  float: left;
+}
+.notActive{
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  float: left;
+}
+/* *********NavBar***********/
+
 .ProductList{
   list-style-type: none;
   margin:auto;
