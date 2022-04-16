@@ -1,18 +1,15 @@
 from urllib import request
 from rest_framework import viewsets
-from .serializers import ProductSerializer
+from yaml import serialize
+from .serializers import ProductSerializer, ProductSerializerDetailed
 from .models import ProductModel
-
-# Create your views here.
-# class ProductView(viewsets.ModelViewSet):
-#     serializer_class = ProductSerializer
-#     queryset = ProductModel.objects.all()
 
 
 class ProductView(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
+    queryset = ProductModel.objects.all()
 
-    # def __init__(self,  **kwargs):
-    #     super(ProductView, self).__init__(**kwargs)
-    
+
+class ProductViewDetailed(viewsets.ModelViewSet):
+    serializer_class = ProductSerializerDetailed
     queryset = ProductModel.objects.all()

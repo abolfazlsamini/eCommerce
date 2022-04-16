@@ -1,18 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from 'react-router-dom';
 
-
-const { useState } = require("react");
 
 function ProductView(props){
 
   const location = useLocation();
   const id = location.state;
-  const [detailedList,setDetailedList] = useState({});
+  const [detailedList,setDetailedList] = useState(
+    {name:'', price:'', description:'', moreDescription:'', otherstuff:''});
 
   function fetcher(id){
 
-    const url = 'http://127.0.0.1:8000/api/products/' + id.id;
+    const url = 'http://127.0.0.1:8000/api/product/' + id.id;
       fetch(url).then(res => {return res.json()}).then(
         data => {setDetailedList(data);console.log("data",data)});
         
@@ -28,16 +27,13 @@ function ProductView(props){
 
       <h3  className="Product-detail">
         <h3>Product details are:</h3>
-{/*  it works it's just the editor is being a dick about it so i'll leave it be for now */}
-        name: {detailedList.
-// @ts-ignore
-        name}<br/>
-        price: {detailedList.
-// @ts-ignore
-        price}<br/>
-        description: {detailedList.
-// @ts-ignore
-        description}
+
+        name: {detailedList.name}<br/>
+        price: {detailedList.price}<br/>
+        description: {detailedList.description}<br/>
+        {detailedList.moreDescription}<br/>
+        {detailedList.otherstuff}
+
 
         {console.log(detailedList)}
       </h3>
