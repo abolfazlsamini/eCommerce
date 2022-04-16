@@ -14,5 +14,5 @@ class ProductView(viewsets.ModelViewSet):
 
     # def __init__(self,  **kwargs):
     #     super(ProductView, self).__init__(**kwargs)
-        
+    
     queryset = ProductModel.objects.all()
