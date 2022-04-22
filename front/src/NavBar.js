@@ -1,8 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import useLocalStorageSetter from "./LocalStorageSetter"
 
 const NavBar = () => {
 
+  const [darkMode, setDarkMode] = useLocalStorageSetter("dark-mode", "false");
     return ( 
 
       <nav className="NavBar">
@@ -24,7 +26,12 @@ const NavBar = () => {
         >
           Contact
       </NavLink>
+      <button className="DarkmodeButton" onClick={()=>{setDarkMode(!darkMode)}}>
+        {darkMode ? (<>Dark</>): <>light</>}
+
+      </button>
     </nav>
+    
 
      );
 }
