@@ -11,7 +11,7 @@ function ProductView(props){
 
   function fetcher(id){
 
-    const url = 'http://127.0.0.1:8000/api/product/' + id.id;
+    const url = 'http://127.0.0.1:8000/api/fullproduct/' + id.id;
       fetch(url).then(res => {return res.json()}).then(
         data => {setDetailedList(data);console.log("data",data)});
         

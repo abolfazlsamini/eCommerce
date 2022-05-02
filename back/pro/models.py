@@ -1,3 +1,4 @@
+from pyexpat import model
 from django.db import models
 
 
@@ -12,3 +13,10 @@ class ProductModel(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Cart(models.Model):
+    items = models.ManyToManyField(ProductModel)
+
+    # def __str__(self):
+    #     return self.items.id

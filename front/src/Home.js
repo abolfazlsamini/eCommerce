@@ -8,7 +8,7 @@ function Home() {
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   function fetcher(){
-    fetch('http://127.0.0.1:8000/api/products/').then(
+    fetch('http://127.0.0.1:8000/api/product/').then(
       res => {return res.json()}).then(
         data => setList(data)).then(()=>setIsLoading(false));
   }
