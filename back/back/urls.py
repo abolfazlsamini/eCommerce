@@ -15,5 +15,7 @@ urlpatterns = [
     path('api/product/<pk>/',  views.ProductViewSingleItem.as_view()),# short version of a single product for idk f u
     path('api/fullproduct/',  views.ProductViewDetailed.as_view()),# long version of all products
     path('api/fullproduct/<pk>/',  views.ProductViewDetailedSingleItem.as_view()),# long version of a single product
+
+    path('api/users/',  views.UserView.as_view()),
 ]
 

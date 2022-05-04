@@ -1,8 +1,9 @@
 from urllib import request, response
 from rest_framework import viewsets, mixins
-from .serializers import ProductSerializer, ProductSerializerDetailed
+from yaml import serialize
+from .serializers import ProductSerializer, ProductSerializerDetailed, UserSerializer
 from .models import ProductModel
-from rest_framework.generics import GenericAPIView, RetrieveAPIView, ListAPIView
+from rest_framework.generics import GenericAPIView, RetrieveAPIView, ListAPIView, CreateAPIView, ListCreateAPIView
 
 
 class ProductView(ListAPIView):
@@ -21,3 +22,7 @@ class ProductViewDetailed(ListAPIView):
 class ProductViewDetailedSingleItem(RetrieveAPIView):
     serializer_class = ProductSerializerDetailed
     queryset = ProductModel.objects.all()
+
+
+class UserView(CreateAPIView):
+    serializer_class = UserSerializer
