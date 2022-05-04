@@ -4,6 +4,7 @@ from yaml import serialize
 from .serializers import ProductSerializer, ProductSerializerDetailed, UserSerializer
 from .models import ProductModel
 from rest_framework.generics import GenericAPIView, RetrieveAPIView, ListAPIView, CreateAPIView, ListCreateAPIView
+from django.contrib.auth.models import User
 
 
 class ProductView(ListAPIView):
@@ -26,3 +27,4 @@ class ProductViewDetailedSingleItem(RetrieveAPIView):
 
 class UserView(CreateAPIView):
     serializer_class = UserSerializer
+    queryset = User.objects.all()
