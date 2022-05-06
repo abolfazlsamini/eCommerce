@@ -1,8 +1,9 @@
 from dataclasses import asdict
-from urllib import response
+from rest_framework.response import Response
 from rest_framework import serializers
 from .models import ProductModel
 from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -24,10 +25,9 @@ class UserSerializer(serializers.ModelSerializer):
             'password': {'write_only': True}
         }
 
-    def create(self, validated_data):
-        user = User.objects.create_user(validated_data['username'],None)
-        user.set_password(validated_data['password'])
 
+    def create(self, validated_data):
+        user = User.objects.create_user(validated_data['username'],None,validated_data['password'])
         return user
 
     #     return super().create(validated_data)

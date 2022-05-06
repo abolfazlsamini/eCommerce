@@ -34,7 +34,7 @@ const loadingAnimation =
       {list.map(product => {return (
       <li className='ProductList' key={product.id}>
         
-        {/* TODO: make a loading effect for products be is the proper position*/}
+        {/* TODO: make a loading effect for products be is the proper position and for it to actully keep trying to fetch data*/}
 
         <Link to= {"/"+product.id } state={{id :product.id}}>
           {product.name}<br/>

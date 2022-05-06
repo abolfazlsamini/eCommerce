@@ -1,11 +1,12 @@
-from urllib import request, response
-from rest_framework import viewsets, mixins
+from rest_framework.response import Response
 from yaml import serialize
 from .serializers import ProductSerializer, ProductSerializerDetailed, UserSerializer
 from .models import ProductModel
-from rest_framework.generics import GenericAPIView, RetrieveAPIView, ListAPIView, CreateAPIView, ListCreateAPIView
+from rest_framework.generics import RetrieveAPIView, ListAPIView, CreateAPIView
 from django.contrib.auth.models import User
-
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authtoken.models import Token
+from rest_framework import status
 
 class ProductView(ListAPIView):
     serializer_class = ProductSerializer
@@ -28,3 +29,13 @@ class ProductViewDetailedSingleItem(RetrieveAPIView):
 class UserView(CreateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+    
+    def create(self, request, *args, **kwargs):# i totally just copies all this shit
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        token, created = Token.objects.get_or_create(user=serializer.instance)
+        return Response({'token': token.key}, status=status.HTTP_201_CREATED, headers=headers)
+
+#    permission_classes = (IsAuthenticated,)
