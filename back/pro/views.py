@@ -30,12 +30,19 @@ class UserView(CreateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
     
-    def create(self, request, *args, **kwargs):# i totally just copies all this shit
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        token, created = Token.objects.get_or_create(user=serializer.instance)
-        return Response({'token': token.key}, status=status.HTTP_201_CREATED, headers=headers)
-
+    def create(self, request, *args, **kwargs):# i totally just copies most of this shit
+        try:
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            token, created = Token.objects.get_or_create(user=serializer.instance)
+            return Response({'token': token.key}, status=status.HTTP_201_CREATED, headers=headers)
+        except Exception as e:
+            if str(e) == "UNIQUE constraint failed: auth_user.username":
+                return Response("Username already exist")
+            if "code='blank'" in str(e): 
+                return Response("Username or password can't be empty")
+            return Response(str(e))
+            
 #    permission_classes = (IsAuthenticated,)
