@@ -1,7 +1,7 @@
 from dataclasses import asdict
 from rest_framework.response import Response
 from rest_framework import serializers
-from .models import ProductModel
+from .models import Costumer, ProductModel
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
@@ -19,8 +19,8 @@ class ProductSerializerDetailed(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ('id', 'username', 'password')
+        model = Costumer
+        fields = ('id', 'username', 'password', 'email', 'address' ,'phone', 'cart')
         extra_kwargs = {
             'password': {'write_only': True}
         }
