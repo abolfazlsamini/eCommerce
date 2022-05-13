@@ -11,11 +11,11 @@ class ProductSerializer(serializers.ModelSerializer):
         model = ProductModel
         fields = ('id', 'name', 'price', 'description')
 
-# for each product: 
-class ProductSerializerDetailed(serializers.ModelSerializer):
+class ProductSerializerDetailed(serializers.ModelSerializer):# for a single product:
     class Meta:
         model = ProductModel
         fields = ('id', 'name', 'price', 'description', 'moreDescription', 'otherstuff')
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,12 +25,14 @@ class UserSerializer(serializers.ModelSerializer):
             'password': {'write_only': True}
         }
 
-
     def create(self, validated_data):
         
-        user = User.objects.create_user(validated_data['username'],None,validated_data['password'])
+        user = Costumer.objects.create_user('username','password')
         return user
-            
 
-    #     return super().create(validated_data)
-    #     user.setpassword
+
+
+class UpdateProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Costumer
+        fields = ('email')

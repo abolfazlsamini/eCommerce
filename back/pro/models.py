@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, UserManager
 
 # Create your models here.
 class ProductModel(models.Model):
@@ -21,8 +21,10 @@ class Cart(models.Model):
 
 
 class Costumer(AbstractBaseUser):
-    username = models.CharField(max_length=100)
+    objects =  UserManager()
+    username = models.CharField(max_length=100, unique = True)
     password = models.CharField(max_length=100)
+    USERNAME_FIELD = 'username'
     email = models.CharField(max_length=100, null=True)
     phone = models.CharField(max_length=100, null=True)
     address = models.CharField(max_length=100, null=True)
