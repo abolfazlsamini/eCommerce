@@ -39,7 +39,7 @@ class UserView(CreateAPIView):
         user = serializer.save()
         token, isCreated = Token.objects.get_or_create(user=user)
         return Response("token: " +str(token))
-        # probaboly dosent need any try/catch becouse of validated_data in serializer 
+        # probaboly dosent need any try/catch becouse of validated_data in serializer
 
 
 class UpdateProfileView(UpdateAPIView):
