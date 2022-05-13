@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ProductModel
+from .models import ProductModel, Costumer
 # Register your models here.
 # this is for costumized admin shit
 # class ProductAdminClass(admin.ModelAdmin):
@@ -7,3 +7,4 @@ from .models import ProductModel
 
 
 admin.site.register(ProductModel)
+admin.site.register(Costumer)

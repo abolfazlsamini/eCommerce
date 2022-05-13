@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import AbstractBaseUser, UserManager
 
@@ -20,12 +19,8 @@ class Cart(models.Model):
     items = models.ManyToManyField(ProductModel)
 
 
-class Costumer(AbstractBaseUser):
-    objects =  UserManager()
-    username = models.CharField(max_length=100, unique = True)
-    password = models.CharField(max_length=100)
-    USERNAME_FIELD = 'username'
-    email = models.CharField(max_length=100, null=True)
+class Costumer(AbstractUser):
+
     phone = models.CharField(max_length=100, null=True)
     address = models.CharField(max_length=100, null=True)
     cart = models.OneToOneField(Cart,on_delete=models.CASCADE, null=True)
