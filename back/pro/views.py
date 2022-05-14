@@ -1,14 +1,11 @@
-import pkg_resources
 from rest_framework.response import Response
-from yaml import serialize
 from .serializers import ProductSerializer, ProductSerializerDetailed, UpdateProfileSerializer, UserSerializer
 from .models import Costumer, ProductModel
 from rest_framework.generics import RetrieveAPIView, ListAPIView, CreateAPIView, UpdateAPIView
-from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 from rest_framework import status
-from django.contrib.auth import get_user_model 
+
 
 class ProductView(ListAPIView):
     serializer_class = ProductSerializer
@@ -28,21 +25,22 @@ class ProductViewDetailedSingleItem(RetrieveAPIView):
     queryset = ProductModel.objects.all()
 
 
-class UserView(CreateAPIView):
+class UserRegisterView(CreateAPIView):
     serializer_class = UserSerializer
     queryset = Costumer.objects.all()
 
     def create(self, request, *args, **kwargs):
-        # it returnes token after every registration
+        # probaboly dosent need any try/catch becouse of validated_data in serializer
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         token, isCreated = Token.objects.get_or_create(user=user)
-        return Response("token: " +str(token))
-        # probaboly dosent need any try/catch becouse of validated_data in serializer
+        return Response("token: " +str(token))   
+    # it returnes token after every registration
 
 
 class UpdateProfileView(UpdateAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = UpdateProfileSerializer
     queryset = Costumer.objects.all()
+
