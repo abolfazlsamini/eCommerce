@@ -1,10 +1,12 @@
+from ast import Return, arg
+import email
 from rest_framework.response import Response
-from .serializers import ProductSerializer, ProductSerializerDetailed, UpdateProfileSerializer, UserSerializer
+from .serializers import ProductSerializer, ProductSerializerDetailed, UserSerializer, UpdateProfileSerializer
 from .models import Costumer, ProductModel
 from rest_framework.generics import RetrieveAPIView, ListAPIView, CreateAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
-from rest_framework import status
+from rest_framework.views import APIView
 
 
 class ProductView(ListAPIView):
@@ -43,4 +45,19 @@ class UpdateProfileView(UpdateAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = UpdateProfileSerializer
     queryset = Costumer.objects.all()
+
+    def patch(self, request, *args, **kwargs):
+        try:
+            user = self.request.user
+            data = self.request.data
+            phone = data['phone']
+            email = data['email']
+            address = data['address']
+            Costumer.objects.filter(id = user.id).update(phone = phone,email = email,address=address)
+            user = Costumer.objects.get(id=user.id)
+            user = UpdateProfileSerializer(user)# the sheer creativity in naming veriables :)
+            return Response(user.data)
+        except Exception as e:
+            return Response("some fields are missing! "+str(e))
+    # can update phone, email and address of a user
 
