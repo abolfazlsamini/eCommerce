@@ -1,7 +1,11 @@
 from ast import Return, arg
 import email
 from rest_framework.response import Response
-from .serializers import ProductSerializer, ProductSerializerDetailed, UserSerializer, UpdateProfileSerializer
+from .serializers import (ProductSerializer, 
+                            ProductSerializerDetailed,
+                            UserSerializer,
+                            UpdateProfileSerializer,
+                            GetProfileSerializer)
 from .models import Costumer, ProductModel
 from rest_framework.generics import RetrieveAPIView, ListAPIView, CreateAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
@@ -61,3 +65,14 @@ class UpdateProfileView(UpdateAPIView):
             return Response("some fields are missing! "+str(e))
     # can update phone, email and address of a user
 
+class GetProfileView(ListAPIView):
+    (IsAuthenticated,)
+    serializer_class = GetProfileSerializer
+    def get(self, request, *args, **kwargs):
+            user = self.request.user
+            data = self.request.data        
+            Costumer.objects.filter(id = user.id)
+            user = Costumer.objects.get(id=user.id)
+            user = UpdateProfileSerializer(user)
+            return Response(user.data)
+    # returns users profile fields

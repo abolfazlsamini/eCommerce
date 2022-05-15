@@ -13,8 +13,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('api-fetch', obtain_auth_token),# fetch token or our login too i guess
-    path('api/users/',  views.UserRegisterView.as_view()),# user Register
-    path('api/users/updateprofile/', views.UpdateProfileView.as_view()), # Update user Profile
+    path('api/user/update',  views.UserRegisterView.as_view()),# user Register
+    path('api/user/profile/', views.GetProfileView.as_view()),# Get the Profile
+    path('api/user/updateprofile/', views.UpdateProfileView.as_view()), # Update user Profile
 
     path('api/product/',  views.ProductView.as_view()), # short version of product for main page
     path('api/product/<pk>/',  views.ProductViewSingleItem.as_view()),# short version of a single product for idk f u

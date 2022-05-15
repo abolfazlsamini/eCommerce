@@ -36,3 +36,9 @@ class UpdateProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Costumer
         fields = ('phone','email','address')
+
+
+class GetProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Costumer
+        fields = '__all__'
