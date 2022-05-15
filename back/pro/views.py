@@ -69,8 +69,7 @@ class GetProfileView(ListAPIView):
     (IsAuthenticated,)
     serializer_class = GetProfileSerializer
     def get(self, request, *args, **kwargs):
-            user = self.request.user
-            data = self.request.data        
+            user = self.request.user      
             Costumer.objects.filter(id = user.id)
             user = Costumer.objects.get(id=user.id)
             user = UpdateProfileSerializer(user)
