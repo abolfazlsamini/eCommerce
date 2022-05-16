@@ -1,34 +1,27 @@
-from ast import Return, arg
-import email
 from rest_framework.response import Response
-from .serializers import (ProductSerializer, 
-                            ProductSerializerDetailed,
-                            UserSerializer,
-                            UpdateProfileSerializer,
-                            GetProfileSerializer)
+from .serializers import ProductSerializer, ProductSerializerDetailed, UserSerializer, UpdateProfileSerializer, GetProfileSerializer
 from .models import Costumer, ProductModel
 from rest_framework.generics import RetrieveAPIView, ListAPIView, CreateAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
-from rest_framework.views import APIView
 
 
 class ProductView(ListAPIView):
     serializer_class = ProductSerializer
     queryset = ProductModel.objects.all()
-
+    # all product short version
 class ProductViewSingleItem(RetrieveAPIView):
     serializer_class = ProductSerializer
     queryset = ProductModel.objects.all()
-
-
+    # a single product short version
 class ProductViewDetailed(ListAPIView):
     serializer_class = ProductSerializerDetailed
     queryset = ProductModel.objects.all()
-
+    # all product Long version
 class ProductViewDetailedSingleItem(RetrieveAPIView):
     serializer_class = ProductSerializerDetailed
     queryset = ProductModel.objects.all()
+    # a single product Long version
 
 
 class UserRegisterView(CreateAPIView):
@@ -43,8 +36,6 @@ class UserRegisterView(CreateAPIView):
         token, isCreated = Token.objects.get_or_create(user=user)
         return Response("token: " +str(token))   
     # it returnes token after every registration
-
-
 class UpdateProfileView(UpdateAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = UpdateProfileSerializer
@@ -64,7 +55,6 @@ class UpdateProfileView(UpdateAPIView):
         except Exception as e:
             return Response("some fields are missing! "+str(e))
     # can update phone, email and address of a user
-
 class GetProfileView(ListAPIView):
     (IsAuthenticated,)
     serializer_class = GetProfileSerializer
@@ -75,3 +65,4 @@ class GetProfileView(ListAPIView):
             user = UpdateProfileSerializer(user)
             return Response(user.data)
     # returns users profile fields
+    
