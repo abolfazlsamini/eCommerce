@@ -20,7 +20,8 @@ urlpatterns = [
     path('api/product/',  views.ProductView.as_view()), # short version of product for main page
     path('api/product/<pk>/',  views.ProductViewSingleItem.as_view()),# short version of a single product for idk f u
     path('api/fullproduct/',  views.ProductViewDetailed.as_view()),# long version of all products
-    path('api/fullproduct/<pk>/',  views.ProductViewDetailedSingleItem.as_view())# long version of a single product
+    path('api/fullproduct/<pk>/',  views.ProductViewDetailedSingleItem.as_view()),# long version of a single product
 
+    path('api/add-to-cart/',  views.AddToCartView.as_view()),
 ]
 

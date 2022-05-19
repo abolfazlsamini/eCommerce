@@ -24,5 +24,5 @@ class Costumer(AbstractUser):
 
     phone = models.CharField(max_length=100, blank=True, default=None)
     address = models.CharField(max_length=100, blank=True)
-    cart = models.OneToOneField(Cart,on_delete=models.CASCADE, blank=True)
+    cart = models.ForeignKey(Cart,on_delete=models.CASCADE, blank=True, )
 

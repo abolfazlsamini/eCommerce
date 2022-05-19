@@ -42,3 +42,9 @@ class GetProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Costumer
         fields = '__all__'
+
+
+class AddToCartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Costumer
+        fields = '__all__'
