@@ -16,13 +16,12 @@ class ProductModel(models.Model):
 
 
 class Cart(models.Model):
-    items = models.ManyToManyField(ProductModel, related_name="item")
-    # something = models.ForeignKey(ProductModel,on_delete=models.CASCADE, blank=True, related_name="smt")
+    items = models.ManyToManyField(ProductModel,  blank=True)
 
 
 class Costumer(AbstractUser):
 
     phone = models.CharField(max_length=100, blank=True, default=None)
     address = models.CharField(max_length=100, blank=True)
-    cart = models.ForeignKey(Cart,on_delete=models.CASCADE, blank=True, )
+    cart = models.OneToOneField(Cart,on_delete=models.CASCADE, blank=True, )
 

@@ -22,21 +22,6 @@ class ProductViewDetailedSingleItem(RetrieveAPIView):
     serializer_class = ProductSerializerDetailed
     queryset = ProductModel.objects.all()
     # a single product Long version
-
-
-class UserRegisterView(CreateAPIView):
-    serializer_class = UserSerializer
-    queryset = Costumer.objects.all()
-
-    def create(self, request, *args, **kwargs):
-        # probaboly dosent need any try/catch becouse of validated_data in serializer
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-        token, isCreated = Token.objects.get_or_create(user=user)
-        cart = Cart.objects.create()
-        return Response("token: " +str(token))   
-    # it returnes token after every registration
 class UpdateProfileView(UpdateAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = UpdateProfileSerializer
@@ -66,18 +51,32 @@ class GetProfileView(ListAPIView):
             user = UpdateProfileSerializer(user)
             return Response(user.data)
     # returns users profile fields
-    
+class UserRegisterView(CreateAPIView):
+    serializer_class = UserSerializer
+    queryset = Costumer.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        # probaboly dosent need any try/catch becouse of validated_data in serializer
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        token, isCreated = Token.objects.get_or_create(user=user)
+        return Response("token: " +str(token))   
+    # it returnes token after every registration
 class AddToCartView(UpdateAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = AddToCartSerializer
     queryset = Costumer.objects.all()
 
     def post(self, request):
-        id = self.request.data
-        id = id['id'] # Yes
-        user = self.request.user
-        product = ProductModel.objects.get(id=id)
-        Costumer.objects.filter(id = user.id).update(cart=None)
-        user = Costumer.objects.get(id=user.id)
-        user = UpdateProfileSerializer(user)# the sheer creativity in naming veriables :)
-        return Response(user.data)
+        try:
+            id = self.request.data
+            id = id['id'] # Yes
+            user = self.request.user
+            cart , created= Cart.objects.get_or_create(id = user.id)
+            product = ProductModel.objects.get(id=id)
+            cart.items.add(product)
+            return Response({"Success": (str(product) + " Was Added")})
+        except Exception as e:
+            return Response({"Error": str(e)})
+    # it just adds a product to cart, dosen't handle remove or quantity, why? becaouse i didn't think of it
