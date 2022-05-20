@@ -1,9 +1,13 @@
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from .serializers import AddToCartSerializer, ProductSerializer, ProductSerializerDetailed, UserSerializer, UpdateProfileSerializer, GetProfileSerializer
 from .models import Cart, Costumer, ProductModel
 from rest_framework.generics import RetrieveAPIView, ListAPIView, CreateAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
+from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
+from django.utils.decorators import method_decorator
+from rest_framework.authtoken.views import obtain_auth_token, ObtainAuthToken
 
 
 class ProductView(ListAPIView):
@@ -22,6 +26,8 @@ class ProductViewDetailedSingleItem(RetrieveAPIView):
     serializer_class = ProductSerializerDetailed
     queryset = ProductModel.objects.all()
     # a single product Long version
+
+@method_decorator(csrf_protect, name='dispatch')
 class UpdateProfileView(UpdateAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = UpdateProfileSerializer
@@ -41,6 +47,8 @@ class UpdateProfileView(UpdateAPIView):
         except Exception as e:
             return Response("some fields are missing! "+str(e))
     # can update phone, email and address of a user
+
+@method_decorator(csrf_protect, name='dispatch')
 class GetProfileView(ListAPIView):
     (IsAuthenticated,)
     serializer_class = GetProfileSerializer
@@ -51,6 +59,8 @@ class GetProfileView(ListAPIView):
             user = UpdateProfileSerializer(user)
             return Response(user.data)
     # returns users profile fields
+
+@method_decorator(csrf_protect, name='dispatch')
 class UserRegisterView(CreateAPIView):
     serializer_class = UserSerializer
     queryset = Costumer.objects.all()
@@ -63,6 +73,8 @@ class UserRegisterView(CreateAPIView):
         token, isCreated = Token.objects.get_or_create(user=user)
         return Response("token: " +str(token))   
     # it returnes token after every registration
+
+@method_decorator(csrf_protect, name='dispatch')
 class AddToCartView(UpdateAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = AddToCartSerializer
@@ -80,3 +92,13 @@ class AddToCartView(UpdateAPIView):
         except Exception as e:
             return Response({"Error": str(e)})
     # it just adds a product to cart, dosen't handle remove or quantity, why? becaouse i didn't think of it
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+class GetCSRFToken(APIView):
+    # permission_classes = (permissions.allowany,)
+    def get(self, request, format=None):
+        return Response({"SUCSSES":"CSRF Cookie set"})
+
+@method_decorator(csrf_protect, name='dispatch')
+class CustomAuthToken(ObtainAuthToken):
+    pass

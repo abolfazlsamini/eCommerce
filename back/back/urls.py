@@ -12,7 +12,9 @@ from rest_framework.authtoken.views import obtain_auth_token
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('api-fetch', obtain_auth_token),# fetch token or our login too i guess
+    path('api-fetch/csrf',views.GetCSRFToken.as_view()),# get the CSRF cookie/token
+    path('api-fetch/token', views.CustomAuthToken.as_view()),# fetch token or our login too i guess
+
     path('api/user/register/',  views.UserRegisterView.as_view()),# user Register
     path('api/user/profile/', views.GetProfileView.as_view()),# Get the Profile
     path('api/user/updateprofile/', views.UpdateProfileView.as_view()), # Update user Profile
