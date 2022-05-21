@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from .serializers import AddToCartSerializer, ProductSerializer, ProductSerializerDetailed, UserSerializer, UpdateProfileSerializer, GetProfileSerializer
 from .models import Cart, Costumer, ProductModel
 from rest_framework.generics import RetrieveAPIView, ListAPIView, CreateAPIView, UpdateAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.authtoken.models import Token
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
@@ -11,18 +11,22 @@ from rest_framework.authtoken.views import obtain_auth_token, ObtainAuthToken
 
 
 class ProductView(ListAPIView):
+    permission_classes = (AllowAny,)
     serializer_class = ProductSerializer
     queryset = ProductModel.objects.all()
     # all product short version
 class ProductViewSingleItem(RetrieveAPIView):
+    permission_classes = (AllowAny,)
     serializer_class = ProductSerializer
     queryset = ProductModel.objects.all()
     # a single product short version
 class ProductViewDetailed(ListAPIView):
+    permission_classes = (AllowAny,)
     serializer_class = ProductSerializerDetailed
     queryset = ProductModel.objects.all()
     # all product Long version
 class ProductViewDetailedSingleItem(RetrieveAPIView):
+    permission_classes = (AllowAny,)
     serializer_class = ProductSerializerDetailed
     queryset = ProductModel.objects.all()
     # a single product Long version
@@ -102,3 +106,5 @@ class GetCSRFToken(APIView):
 @method_decorator(csrf_protect, name='dispatch')
 class CustomAuthToken(ObtainAuthToken):
     pass
+
+
